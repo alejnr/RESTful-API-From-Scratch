@@ -94,6 +94,15 @@ app.route('/articles/:articleID')
             }
         )
     })
+    .delete(function (req, res) {
+        Article.deleteOne({_id: req.params.articleID}, function (err) {
+            if (!err) {
+                res.send('Successfully deleted article.')
+            } else {
+                res.send(err)
+            }
+        })
+    })
 
 
 app.listen(port, function(){
