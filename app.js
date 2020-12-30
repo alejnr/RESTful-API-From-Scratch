@@ -10,6 +10,8 @@ mongoose.connect('mongodb://localhost:27017/wikiDB', {useNewUrlParser: true, use
 const acticleSchema = new mongoose.Schema({
   title: String,
   content: String
+}, {
+    versionKey: false
 })
 
 const Article = mongoose.model('Article', acticleSchema)
