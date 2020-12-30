@@ -66,6 +66,19 @@ app.route('/articles/:articleID')
             }
         })
     })
+    .put(function (req, res) {
+        Article.updateOne(
+            {_id: req.params.articleID},
+            {title: req.body.title, content: req.body.content},
+            function (err) {
+                if (!err) {
+                    res.send('Successfully updated article.')
+                } else {
+                    res.send(err)
+                }
+            }
+        )
+    })
 
 
 app.listen(port, function(){
