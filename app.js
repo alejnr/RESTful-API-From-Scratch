@@ -14,14 +14,26 @@ const acticleSchema = new mongoose.Schema({
 
 const Article = mongoose.model('Article', acticleSchema)
 
-
-
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static('public'))
 
 app.get('/', function(req, res) {
     res.send('<h1>I am a server</h1>')
+})
+
+app.get('/articles', function(req, res) {
+
+    Article.find({}, function (err, risults) {
+
+        if (!err) {
+            res.send(risults)
+        } else {
+            res.send(err)
+        }
+
+    })
+    
 })
 
 app.listen(port, function(){
