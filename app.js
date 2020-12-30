@@ -81,6 +81,19 @@ app.route('/articles/:articleID')
             }
         )
     })
+    .patch(function (req, res) {
+        Article.updateOne(
+            {_id: req.params.articleID},
+            {$set: req.body},
+            function (err) {
+                if (!err) {
+                    res.send('Successfully updated article.')
+                } else {
+                    res.send(err)
+                }
+            }
+        )
+    })
 
 
 app.listen(port, function(){
