@@ -5,6 +5,16 @@ const ejs = require('ejs')
 const app = express()
 const port = 3000
 
+mongoose.connect('mongodb://localhost:27017/wikiDB', {useNewUrlParser: true, useUnifiedTopology: true})
+
+const acticleSchema = new mongoose.Schema({
+  title: String,
+  content: String
+})
+
+const Article = mongoose.model('Article', acticleSchema)
+
+
 
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }))
