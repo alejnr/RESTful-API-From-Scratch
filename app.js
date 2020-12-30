@@ -56,6 +56,18 @@ app.route('/articles')
     })
 
 
+app.route('/articles/:articleID')
+    .get(function (req, res) {
+        Article.findOne({_id: req.params.articleID}, function (err, risult) {
+            if (!err) {
+                res.send(risult)
+            } else {
+                res.send(err)
+            }
+        })
+    })
+
+
 app.listen(port, function(){
     console.log('Server started on port', port);
 })
