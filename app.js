@@ -22,50 +22,38 @@ app.get('/', function(req, res) {
     res.send('<h1>I am a server</h1>')
 })
 
-app.get('/articles', function(req, res) {
-
-    Article.find({}, function (err, risults) {
-
-        if (!err) {
-            res.send(risults)
-        } else {
-            res.send(err)
-        }
-
+app.route('/articles')
+    .get(function(req, res) {
+        Article.find({}, function (err, risults) {
+            if (!err) {
+                res.send(risults)
+            } else {
+                res.send(err)
+            }
+        })
     })
-    
-})
-
-
-app.post('/articles', function (req, res) {
-    
-    const newArticle = new Article ({
-        title: req.body.title,
-        content: req.body.content
+    .post(function (req, res) {
+        const newArticle = new Article ({
+            title: req.body.title,
+            content: req.body.content
+        })
+        newArticle.save(function(err){
+            if (!err){
+            res.send('Successfully added a new article.')
+            } else {
+                res.send(err)
+            }
+        })
     })
-
-    newArticle.save(function(err){
-        if (!err){
-          res.send('Successfully added a new article.')
-        } else {
-            res.send(err)
-        }
-      })
-
-})
-
-
-app.delete('/articles', function (req, res) {
-    
-    Article.deleteMany({}, function (err) {
-        if (!err) {
-            res.send('Successfully deleted all articles.')
-        } else {
-            res.send(err)
-        }
+    .delete(function (req, res) {
+        Article.deleteMany({}, function (err) {
+            if (!err) {
+                res.send('Successfully deleted all articles.')
+            } else {
+                res.send(err)
+            }
+        })
     })
-
-})
 
 
 app.listen(port, function(){
